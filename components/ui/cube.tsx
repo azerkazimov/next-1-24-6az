@@ -20,7 +20,9 @@ export default function Cube() {
         const renderer = new THREE.WebGLRenderer({ canvas: canvas  });
         renderer.setSize(width, height);
 
-        const cube = new THREE.Mesh(new THREE.BoxGeometry( 2, 2, 2 ), new THREE.MeshBasicMaterial( { color: 0x00ff00 } ))
+        const geometry = new THREE.BoxGeometry( 2, 2, 2 )
+        const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } )
+        const cube = new THREE.Mesh(geometry, material)
         scene.add(cube)
 
         const animate = ()=>{
