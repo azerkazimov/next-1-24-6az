@@ -21,7 +21,7 @@ export default function Navbar() {
                     </div>
                     
                     {/* Button */}
-                    <Button variant="primary" className="py-6">Login</Button>
+                    <Button variant="primary" className="py-6 transform translate-x-[-100px]">Login</Button>
                 </div>
             </div>
         </nav>
