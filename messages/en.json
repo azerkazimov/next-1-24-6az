@@ -1,3 +1,12 @@
 {
-    "hello": "Hello"
+    "hero":{
+        "title": "Welcome to our electronics store",
+        "description": "We sell the best electronics products in the market"
+    },
+    "contact":{
+        "title": "Contact us",
+        "description": "We sell the best electronics products in the market",
+        "phone": "+994 55 123 45 67",
+        "address": "Baku, Azerbaijan"
+    }
 }

@@ -1,6 +1,5 @@
 import { Post } from "@/features/main/types/post";
 
-
 export default async function ElectronicsDetail({ params }: { params: Promise<{ id: string }> }) {
 
     const { id } = await params;
@@ -9,7 +8,6 @@ export default async function ElectronicsDetail({ params }: { params: Promise<{ 
 
     if (!post) return <div>No post found</div>;
     
-
     return (
         <div className="container mx-auto">
             <div className="flex flex-col gap-4 border p-4 rounded-md">

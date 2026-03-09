@@ -3,12 +3,14 @@
 import Scooter from "@/components/ui/scooter";
 import Sphere from "@/components/ui/sphere";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 export default function Hero() {
+    const t = useTranslations("hero");
     return(
         <div className="grid grid-cols-2">
             <div className="col-span-1">
-                <h1 className="text-4xl font-bold">FUTURE</h1>
+                <h1 className="text-4xl font-bold">{t("title")}</h1>
             </div>
             <div className="col-span-1 relative">
                 <motion.div
