@@ -1,9 +1,27 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import LanguageSwitcher from "./language-switcher";
+import { useMobile } from "../hooks/use-mobile";
+import MobileNav from "./mobile-nav";
+
+
 
 export default function Navbar() {
+    const isMobile = useMobile();
+
+    if (isMobile) {
+        return (
+            <div className="container mx-auto px-8 mt-8">
+                <div className="flex w-full justify-end">
+                    <MobileNav />
+                </div>
+            </div>
+        )
+    }
+
+
     return (
         <nav className="bg-transparent">
             <div className="container mx-auto py-8">

@@ -1,4 +1,24 @@
 {
+    "navbar":{
+        "menu": {
+            "home": {
+                "title": "Home",
+                "href": "/"
+            },
+            "products": {
+                "title": "Products",
+                "href": "/products"
+            },
+            "gallery": {
+                "title": "Gallery",
+                "href": "/gallery"
+            },
+            "contact": {
+                "title": "Contact",
+                "href": "/contact"
+            }
+        }
+    },
     "hero":{
         "title": "Welcome to our electronics store",
         "description": "We sell the best electronics products in the market"

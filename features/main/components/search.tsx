@@ -1,5 +1,17 @@
+"use client";
+import { useMobile } from "@/features/hooks/use-mobile";
 
 export default function Search() {
+    const isMobile = useMobile();
+
+    if (isMobile) {
+        return (
+            <div className=" ">
+                
+            </div>
+        )
+    }
+
     return (
         <div className="flex flex-col fixed top-0 right-0 min-h-screen border z-50 max-w-[96px]">
             <div className="flex-1 bg-linear-to-b from-[#9AE0D3] to-[#35A7A0] h-full w-full flex justify-center items-center">

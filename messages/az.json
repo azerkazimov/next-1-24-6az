@@ -1,4 +1,24 @@
 {
+    "navbar":{
+        "menu": {
+            "home": {
+                "title": "Ana səhifə",
+                "href": "/"
+            },
+            "products": {
+                "title": "Məhsullar",
+                "href": "/products"
+            },
+            "gallery": {
+                "title": "Galeriya",
+                "href": "/gallery"
+            },
+            "contact": {
+                "title": "Əlaqə",
+                "href": "/contact"
+            }
+        }
+    },
     "hero":{
         "title": "Bizim elektronika mağazamıza xoş gəlmisiniz",
         "description": "Biz sizi ən yaxşı elektronika məhsulları ilə tanış edəcəyik"
