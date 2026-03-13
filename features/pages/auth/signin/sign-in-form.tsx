@@ -1,4 +1,5 @@
 "use client"
+
 import { Button } from "@/components/ui/button"
 import {
     Card,
@@ -18,6 +19,7 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 import { signInSchema, SignInSchema } from "../schema/auth-schema"
+import { signIn } from "next-auth/react"
 
 export function SignInForm() {
     const { register, handleSubmit, formState: { errors } } = useForm<SignInSchema>({
@@ -54,7 +56,9 @@ export function SignInForm() {
                     Enter your email below to login to your account
                 </CardDescription>
                 <CardAction>
-                    <Button variant="link">Sign Up</Button>
+                    <Link href="/auth/signup">
+                        <Button variant="link">Sign Up</Button>
+                    </Link>
                 </CardAction>
             </CardHeader>
             <CardContent>
@@ -91,8 +95,11 @@ export function SignInForm() {
                 </form>
             </CardContent>
             <CardFooter className="flex-col">
-                <Button variant="outline" className="w-full">
+                <Button variant="outline" className="w-full" onClick={() => signIn("google", { callbackUrl: "/" })}>
                     Login with Google
+                </Button>
+                <Button variant="outline" className="w-full" onClick={() => signIn("github", { callbackUrl: "/" })}>
+                    Login with Github
                 </Button>
             </CardFooter>
         </Card>

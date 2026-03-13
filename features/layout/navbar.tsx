@@ -1,15 +1,19 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
-import LanguageSwitcher from "./language-switcher";
 import { useMobile } from "../hooks/use-mobile";
+import LanguageSwitcher from "./language-switcher";
 import MobileNav from "./mobile-nav";
+import ProfileButton from "./profile-button";
 
 
 
 export default function Navbar() {
+
     const isMobile = useMobile();
+
+
+
 
     if (isMobile) {
         return (
@@ -42,7 +46,7 @@ export default function Navbar() {
                     {/* Button */}
                     <div className="flex items-center gap-4 transform translate-x-[-100px]">
                         <LanguageSwitcher />
-                        <Button variant="primary" className="py-6 ">Login</Button>
+                        <ProfileButton />
                     </div>
                 </div>
             </div>

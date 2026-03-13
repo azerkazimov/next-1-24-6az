@@ -1,27 +1,53 @@
 import { NextRequest, NextResponse } from "next/server";
 import createIntlMiddleware from "next-intl/middleware";
 import { routing } from "@/i18n/routing";
+import { getToken } from "next-auth/jwt";
 
 const intlMiddleware = createIntlMiddleware(routing);
 
-const isProtectedRoute = ["/dashboard", "/profile"];
+const protectedRoutes = ["/dashboard", "/profile"];
 
-export default function proxy(request: NextRequest) {
-    const { pathname } = request.nextUrl;
-    const isAuthenticated = false;
+export default async function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
 
-    if (isAuthenticated) {
-        return NextResponse.redirect(new URL("/dashboard", request.url));
-    }
+  // 1. Get the session token (Edge compatible)
+  const session = await getToken({ 
+    req: request, 
+    secret: process.env.NEXTAUTH_SECRET 
+  });
+  
+  const isAuthenticated = !!session; // true or false
 
-    const pathnameWithoutLocale = pathname.replace(/^\/(en|az)/, "") || "/";
-    if (isProtectedRoute.includes(pathnameWithoutLocale) && !isAuthenticated) {
-        return NextResponse.redirect(new URL("/signin", request.url));
-    }
+  // 2. Determine the locale from the pathname (or fallback to default)
+  const pathnameHasLocale = routing.locales.some(
+    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
+  );
 
-    return intlMiddleware(request);
+  const locale = pathnameHasLocale 
+    ? pathname.split("/")[1] 
+    : routing.defaultLocale;
+
+  const pathnameWithoutLocale = pathnameHasLocale
+    ? pathname.replace(new RegExp(`^/(${routing.locales.join("|")})`), "") || "/"
+    : pathname;
+
+  // 3. Logic: If NOT authenticated and trying to access a protected route
+  if (protectedRoutes.includes(pathnameWithoutLocale) && !isAuthenticated) {
+    const signInUrl = new URL(`/${locale}/auth/signin`, request.url);
+    return NextResponse.redirect(signInUrl);
+  }
+
+  // 4. Logic: If authenticated and trying to access login/landing (Optional)
+  // Prevent infinite loops by checking if we are already on a protected page
+  if (isAuthenticated && pathnameWithoutLocale === "/auth/signin") {
+     return NextResponse.redirect(new URL(`/${locale}/dashboard`, request.url));
+  }
+
+  // 5. Let next-intl handle the routing/localization
+  return intlMiddleware(request);
 }
 
 export const config = {
-    matcher: ["/((?!api|trpc|_next|_vercel|.*\\..*).*)"],
+  // Matcher ignoring internal files and API routes
+  matcher: ["/((?!api|_next|.*\\..*).*)"],
 };
